@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
+using CrefisaPuma.Models;
 
 namespace CrefisaPuma
 {
@@ -33,6 +35,10 @@ namespace CrefisaPuma
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            services.AddDbContext<CrefisaPumaContext>(options =>
+                    options.UseMySql(Configuration.GetConnectionString("CrefisaPumaContext"), builder =>
+                        builder.MigrationsAssembly("CrefisaPuma")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
